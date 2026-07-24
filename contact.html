@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <div class="site-shell">
       <header class="site-header">
         <div class="nav-wrap">
@@ -52,34 +53,41 @@
         </aside>
 
         <form class="contact-form reveal" action="" method="post">
-          <h2>מתאמים שיחת היכרות</h2>
-          <p class="form-note">השאירו כמה פרטים קצרים וניצור קשר בהקדם.</p>
-          <div class="form-grid">
-            <div class="field">
-              <label for="name">שם מלא</label>
-              <input id="name" name="name" type="text" autocomplete="name" placeholder="איך קוראים לכם?" />
+          <div class="form-fields">
+            <h2>מתאמים שיחת היכרות</h2>
+            <p class="form-note">השאירו כמה פרטים קצרים וניצור קשר בהקדם.</p>
+            <div class="form-grid">
+              <div class="field">
+                <label for="name">שם מלא</label>
+                <input id="name" name="name" type="text" autocomplete="name" placeholder="איך קוראים לכם?" required />
+              </div>
+              <div class="field">
+                <label for="phone">טלפון</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="050-0000000" required />
+              </div>
+              <div class="field">
+                <label for="email">דוא״ל</label>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="name@example.com" />
+              </div>
+              <div class="field">
+                <label for="grade">כיתה מבוקשת</label>
+                <input id="grade" name="grade" type="text" placeholder="לדוגמה: כיתה א׳" />
+              </div>
+              <div class="field full">
+                <label for="message">מה תרצו לשאול?</label>
+                <textarea id="message" name="message" placeholder="אפשר לכתוב כאן בקצרה"></textarea>
+              </div>
             </div>
-            <div class="field">
-              <label for="phone">טלפון</label>
-              <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="050-0000000" />
-            </div>
-            <div class="field">
-              <label for="email">דוא״ל</label>
-              <input id="email" name="email" type="email" autocomplete="email" placeholder="name@example.com" />
-            </div>
-            <div class="field">
-              <label for="grade">כיתה מבוקשת</label>
-              <input id="grade" name="grade" type="text" placeholder="לדוגמה: כיתה א׳" />
-            </div>
-            <div class="field full">
-              <label for="message">מה תרצו לשאול?</label>
-              <textarea id="message" name="message" placeholder="אפשר לכתוב כאן בקצרה"></textarea>
-            </div>
+            <button class="button" type="submit">
+              שליחת פרטים
+              <span class="arrow">←</span>
+            </button>
           </div>
-          <button class="button" type="submit">
-            שליחת פרטים
-            <span class="arrow">←</span>
-          </button>
+          <div class="form-success">
+            <span class="check">✓</span>
+            <strong>הפרטים נשלחו!</strong>
+            <span>תודה שפניתם אלינו — ניצור איתכם קשר בהקדם האפשרי.</span>
+          </div>
         </form>
       </main>
 
