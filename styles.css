@@ -3,6 +3,7 @@
   --paper-green: #f1f7f1;
   --white: #ffffff;
   --ink: #173e38;
+  --ink-deep: #0e2f27;
   --muted: #61746f;
   --turquoise: #12b3a0;
   --turquoise-deep: #076e66;
@@ -33,7 +34,7 @@ body {
   min-height: 100vh;
   color: var(--ink);
   background: var(--paper);
-  font-family: "Arial Hebrew", "Noto Sans Hebrew", Arial, sans-serif;
+  font-family: "Rubik", "Arial Hebrew", "Noto Sans Hebrew", Arial, sans-serif;
   overflow-x: hidden;
 }
 
@@ -539,51 +540,56 @@ textarea {
 }
 
 .values {
-  width: var(--wrap);
-  margin: 0 auto 60px;
-  border: 1px solid rgba(23, 62, 56, 0.07);
-  border-radius: var(--radius);
-  background: var(--white);
-  box-shadow: 0 13px 38px rgba(35, 86, 74, 0.07);
+  width: 100%;
+  margin: 0 0 70px;
+  padding: 58px 0;
+  background: linear-gradient(135deg, var(--turquoise-deep) 0%, var(--ink) 62%, var(--ink-deep) 100%);
+  color: var(--white);
   overflow: hidden;
-  padding: 25px 27px;
 }
 
-.section-label {
-  margin-bottom: 17px;
-  color: var(--turquoise-deep);
-  font-size: 12px;
-  font-weight: 900;
+.values-inner {
+  width: var(--wrap);
+  margin: 0 auto;
+}
+
+.values .section-label {
+  color: var(--sun);
 }
 
 .value-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 11px;
+  gap: 14px;
 }
 
 .value {
   min-height: 136px;
-  padding: 18px;
-  border-radius: 21px;
-  background: var(--paper-green);
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
 }
 
 .value:nth-child(2) {
-  background: var(--coral-soft);
+  background: rgba(240, 103, 47, 0.16);
+  border-color: rgba(240, 103, 47, 0.28);
 }
 
 .value:nth-child(3) {
-  background: #fff6dc;
+  background: rgba(248, 195, 51, 0.14);
+  border-color: rgba(248, 195, 51, 0.26);
 }
 
 .value:nth-child(4) {
-  background: #eef6e7;
+  background: rgba(102, 176, 57, 0.16);
+  border-color: rgba(102, 176, 57, 0.28);
 }
 
 .value i {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   display: grid;
   place-items: center;
   margin-bottom: 19px;
@@ -611,11 +617,12 @@ textarea {
 .value strong {
   display: block;
   margin-bottom: 5px;
-  font-size: 17px;
+  font-size: 18px;
+  color: var(--white);
 }
 
 .value span {
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.72);
   font-size: 12px;
   line-height: 1.4;
 }
