@@ -3,209 +3,100 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>שלוש הצעות עיצוב — תלמוד תורה עץ חיים</title>
-    <style>
-      :root {
-        --ink: #173e38;
-        --muted: #65746f;
-        --paper: #fbfaf3;
-        --line: #dfe5df;
-        --teal: #1a998d;
-      }
-
-      * { box-sizing: border-box; }
-
-      body {
-        margin: 0;
-        background: var(--paper);
-        color: var(--ink);
-        font-family: Arial, "Noto Sans Hebrew", sans-serif;
-      }
-
-      main {
-        width: min(1160px, calc(100% - 40px));
-        margin: 0 auto;
-        padding: 70px 0;
-      }
-
-      header {
-        display: flex;
-        align-items: center;
-        gap: 18px;
-        margin-bottom: 58px;
-      }
-
-      header img {
-        width: 78px;
-        height: 78px;
-        object-fit: contain;
-        border-radius: 50%;
-        background: white;
-      }
-
-      h1 {
-        margin: 0 0 6px;
-        font-size: clamp(2rem, 5vw, 4rem);
-        letter-spacing: -0.04em;
-      }
-
-      header p {
-        margin: 0;
-        color: var(--muted);
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 18px;
-      }
-
-      article {
-        min-height: 380px;
-        display: flex;
-        flex-direction: column;
-        padding: 32px;
-        border: 1px solid var(--line);
-        border-radius: 28px;
-        background: white;
-        transition: transform 180ms ease, box-shadow 180ms ease;
-      }
-
-      article:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 20px 50px rgba(23, 62, 56, 0.09);
-      }
-
-      article:nth-child(2) { background: #f7f3ea; }
-      article:nth-child(3) { background: #f6fbf7; }
-
-      .number {
-        width: 42px;
-        height: 42px;
-        display: grid;
-        place-items: center;
-        border: 1px solid currentColor;
-        border-radius: 50%;
-        color: var(--teal);
-        font-weight: 700;
-      }
-
-      h2 {
-        margin: 40px 0 14px;
-        font-size: 2rem;
-        letter-spacing: -0.03em;
-      }
-
-      article p {
-        margin: 0;
-        color: var(--muted);
-        line-height: 1.75;
-      }
-
-      article a {
-        margin-top: auto;
-        display: inline-flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 14px 18px;
-        border-radius: 999px;
-        background: var(--ink);
-        color: white;
-        text-decoration: none;
-        font-weight: 700;
-      }
-
-      @media (max-width: 800px) {
-        main { padding: 40px 0; }
-        .grid { grid-template-columns: 1fr; }
-        article { min-height: 300px; }
-      }
-    </style>
+    <meta name="description" content="תלמוד תורה עץ חיים — בית חינוך לתורה, מידות, שמחה ויחס אישי." />
+    <title>תלמוד תורה עץ חיים | בית</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main>
-      <header>
-        <img src="assets/logo.jpg" alt="סמל תלמוד תורה עץ חיים" />
-        <div>
-          <h1>תשעה כיוונים</h1>
-          <p>כל הצעה היא מיני־אתר עצמאי עם ארבעה עמודים וניווט אמיתי.</p>
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="nav-wrap">
+          <a class="brand" href="index.html" aria-label="תלמוד תורה עץ חיים — בית">
+            <span class="brand-logo"><img src="assets/logo.jpg" alt="" /></span>
+            <span class="brand-copy">
+              <strong>תלמוד תורה עץ חיים</strong>
+              <span>פרדס חנה · כרכור</span>
+            </span>
+          </a>
+          <nav class="main-nav" aria-label="ניווט ראשי">
+            <a class="active" href="index.html" aria-current="page">בית</a>
+            <a href="about.html">אודות</a>
+            <a href="derech.html">הדרך שלנו</a>
+            <a href="life.html">מחיי הת״ת</a>
+            <a href="contact.html">צור קשר</a>
+          </nav>
+          <a class="header-cta" href="contact.html">יום היכרות</a>
         </div>
       </header>
 
-      <h2 style="margin: 0 0 18px; font-size: 1.1rem; color: var(--muted);">סבב ראשון</h2>
-      <section class="grid" aria-label="הצעות העיצוב הראשונות">
-        <article>
-          <span class="number">א</span>
-          <h2>בהיר, צומח ואישי</h2>
-          <p>עיצוב צילומי נקי עם תמונת גיבור גדולה, צבעי טבע ומרווח נשימה נדיב.</p>
-          <a href="site-a/index.html"><span>פתיחת ההצעה</span><span>←</span></a>
-        </article>
+      <main>
+        <section class="home-hero" aria-labelledby="home-title">
+          <div class="home-visual" aria-hidden="true">
+            <span class="hero-ring"></span>
+            <div class="hero-photo"><img src="assets/gallery/beit-mikdash-model.jpg" alt="" /></div>
+            <div class="round-photo"><img src="assets/gallery/saba-venechadim.jpg" alt="" /></div>
+            <div class="floating-note"><strong>ביחד</strong>גדלים, לומדים ושמחים</div>
+          </div>
 
-        <article>
-          <span class="number">ב</span>
-          <h2>ספר פתוח</h2>
-          <p>כיוון שקט ומעודן שמושפע מספר יהודי מודפס, עם קלף, ירוק יער וחמרה.</p>
-          <a href="site-b/index.html"><span>פתיחת ההצעה</span><span>←</span></a>
-        </article>
+          <div class="home-copy">
+            <span class="eyebrow">8 שנים של חינוך לתורה ולחיים</span>
+            <h1 id="home-title">לגדול בתורה.<br /><span>לפרוח בחיים.</span></h1>
+            <p class="lead">תלמוד תורה עץ חיים · פרדס חנה–כרכור, כיתות א׳–ו׳. בית חם ליותר מ־112 ילדים, עם יחס אישי ואהבת תורה בכל יום.</p>
+            <div class="actions">
+              <a class="button" href="contact.html">
+                בואו להכיר אותנו
+                <span class="arrow">←</span>
+              </a>
+              <a class="button secondary" href="derech.html">לדרך שלנו</a>
+            </div>
+          </div>
+        </section>
 
-        <article>
-          <span class="number">ג</span>
-          <h2>אור וקהילה</h2>
-          <p>שפה עכשווית, משפחתית ואופטימית עם חלונות תמונה מעוגלים וצבעוניות רכה.</p>
-          <a href="site-c/index.html"><span>פתיחת ההצעה</span><span>←</span></a>
-        </article>
-      </section>
+        <section class="stats-band reveal" aria-label="עץ חיים במספרים">
+          <div class="stat-card"><strong>8</strong><span>שנות פעילות</span></div>
+          <div class="stat-card"><strong>112</strong><span>תלמידים</span></div>
+          <div class="stat-card"><strong>6</strong><span>כיתות, א׳–ו׳</span></div>
+          <div class="stat-card"><strong>24</strong><span>תלמידים לכיתה, לכל היותר</span></div>
+        </section>
 
-      <h2 style="margin: 48px 0 18px; font-size: 1.1rem; color: var(--muted);">סבב שני — כיוונים מקוריים יותר</h2>
-      <section class="grid" aria-label="הצעות העיצוב החדשות">
-        <article style="background:#f6ecd9;">
-          <span class="number">ד</span>
-          <h2>דף הגמרא</h2>
-          <p>מבנה של דף לימוד אמיתי — טור מרכזי מוקף "רש״י" ו"תוספות", יין וזהב על קלף, כותרות פרקים במקום כותרות אתר.</p>
-          <a href="site-d/index.html"><span>פתיחת ההצעה</span><span>←</span></a>
-        </article>
+        <section class="marquee-wrap reveal" aria-label="רגעים מחיי תלמוד התורה">
+          <div class="marquee-track">
+            <figure><img src="assets/gallery/beit-mikdash-model.jpg" alt="" /></figure>
+            <figure><img src="assets/gallery/nadnede-group.jpg" alt="" /></figure>
+            <figure><img src="assets/gallery/simchat-beit-hashoeva.jpg" alt="" /></figure>
+            <figure><img src="assets/gallery/saba-venechadim.jpg" alt="" /></figure>
+            <figure><img src="assets/gallery/beit-knesset-tefila.jpg" alt="" /></figure>
+            <figure><img src="assets/gallery/limud-im-harav.jpg" alt="" /></figure>
+            <figure><img src="assets/gallery/limud-chevruta.jpg" alt="" /></figure>
+            <figure><img src="assets/gallery/yom-yerushalayim.jpg" alt="" /></figure>
+            <figure><img src="assets/gallery/kita-ktiva.jpg" alt="" /></figure>
+            <figure aria-hidden="true"><img src="assets/gallery/beit-mikdash-model.jpg" alt="" /></figure>
+            <figure aria-hidden="true"><img src="assets/gallery/nadnede-group.jpg" alt="" /></figure>
+            <figure aria-hidden="true"><img src="assets/gallery/simchat-beit-hashoeva.jpg" alt="" /></figure>
+            <figure aria-hidden="true"><img src="assets/gallery/saba-venechadim.jpg" alt="" /></figure>
+            <figure aria-hidden="true"><img src="assets/gallery/beit-knesset-tefila.jpg" alt="" /></figure>
+            <figure aria-hidden="true"><img src="assets/gallery/limud-im-harav.jpg" alt="" /></figure>
+            <figure aria-hidden="true"><img src="assets/gallery/limud-chevruta.jpg" alt="" /></figure>
+            <figure aria-hidden="true"><img src="assets/gallery/yom-yerushalayim.jpg" alt="" /></figure>
+            <figure aria-hidden="true"><img src="assets/gallery/kita-ktiva.jpg" alt="" /></figure>
+          </div>
+        </section>
+      </main>
 
-        <article style="background:#eef2e7;">
-          <span class="number">ה</span>
-          <h2>מגילת חיים</h2>
-          <p>האתר נפתח כמו מגילה בין שני גלילי עץ, עם עץ חיים מצויר שגדל בשוליים ופרקים ממוספרים באותיות גימטריה.</p>
-          <a href="site-e/index.html"><span>פתיחת ההצעה</span><span>←</span></a>
-        </article>
-
-        <article style="background:#eef0f3;">
-          <span class="number">ו</span>
-          <h2>בית מדרש</h2>
-          <p>שולחן לימוד מוחשי — ספר פתוח כהירו, ניווט בצורת סימניות בד, פינות פליז וכחול־לילה עמוק במקום טורקיז.</p>
-          <a href="site-f/index.html"><span>פתיחת ההצעה</span><span>←</span></a>
-        </article>
-      </section>
-
-      <h2 style="margin: 48px 0 18px; font-size: 1.1rem; color: var(--muted);">סבב שלישי — עוד עץ, עוד עיגולים</h2>
-      <section class="grid" aria-label="הצעות עם דגש על עץ ואלמנטים עגולים">
-        <article style="background:#fbf6ec;">
-          <span class="number">ז</span>
-          <h2>עץ המידות</h2>
-          <p>הגיבור בנוי מבועות תמונה עגולות שמצטברות כמו פירות וענפים, עם קווי ענף מנוקדים, טבעות דקורטיביות וסרטון בתוך מסגרת עיגול.</p>
-          <a href="site-g/index.html"><span>פתיחת ההצעה</span><span>←</span></a>
-        </article>
-      </section>
-
-      <h2 style="margin: 48px 0 18px; font-size: 1.1rem; color: var(--muted);">סבב רביעי — כיוונים וצבעוניות שונים לגמרי</h2>
-      <section class="grid" aria-label="הצעות עם פלטה וכיוון עיצובי חדשים">
-        <article style="background:#f7ede0;">
-          <span class="number">ח</span>
-          <h2>כרזה</h2>
-          <p>עיצוב פוסטר שטוח בהשראת כרזות עבריות ישנות — כתום, כחול־נייבי וחרדל, קווי מתאר עבים, צללי אופסט וסמל עץ גיאומטרי.</p>
-          <a href="site-h/index.html"><span>פתיחת ההצעה</span><span>←</span></a>
-        </article>
-
-        <article style="background:#efe9df;">
-          <span class="number">ט</span>
-          <h2>חותמת</h2>
-          <p>שחור־לבן חד, טיפוגרפיה מסוגננת כמו אבן חקוקה, סמל חותם עגול, ואדום חותמת יחיד כנקודת מבט — כיוון מינימליסטי וחגיגי.</p>
-          <a href="site-i/index.html"><span>פתיחת ההצעה</span><span>←</span></a>
-        </article>
-      </section>
-    </main>
+      <footer class="site-footer">
+        <div class="footer-wrap">
+          <span>תלמוד תורה עץ חיים · פרדס חנה–כרכור</span>
+          <div class="footer-links">
+            <a href="about.html">אודות</a>
+            <a href="derech.html">הדרך שלנו</a>
+            <a href="life.html">מחיי הת״ת</a>
+            <a href="contact.html">יצירת קשר</a>
+            <a href="old-design/index.html">עיצוב קודם</a>
+          </div>
+          </div>
+      </footer>
+      <span class="decor-circle"></span>
+    </div>
+    <script src="reveal.js" defer></script>
   </body>
 </html>
