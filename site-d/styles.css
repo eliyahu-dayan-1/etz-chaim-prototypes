@@ -1,0 +1,584 @@
+:root {
+  --parchment: #f6ecd9;
+  --parchment-deep: #eddfbe;
+  --paper: #fbf5e8;
+  --ink: #2b1f14;
+  --muted: #6e5d47;
+  --wine: #7a1f2b;
+  --wine-deep: #591218;
+  --gold: #b8863b;
+  --gold-soft: #e9d3a3;
+  --line: rgba(43, 31, 20, 0.18);
+  --rule: rgba(122, 31, 43, 0.35);
+  --shadow: 0 26px 60px rgba(43, 31, 20, 0.16);
+  --radius: 6px;
+  --wrap: min(1280px, calc(100% - 80px));
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background: var(--parchment);
+  background-image:
+    repeating-linear-gradient(180deg, rgba(43,31,20,0.025) 0px, rgba(43,31,20,0.025) 1px, transparent 1px, transparent 34px);
+  font-family: "Frank Ruhl Libre", "Times New Roman", "David", "Noto Serif Hebrew", serif;
+}
+
+img { max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea { font: inherit; }
+
+/* ---------- header : mimics a sefer's running head ---------- */
+.site-header {
+  position: relative;
+  border-bottom: 3px double var(--wine);
+  background: var(--paper);
+}
+
+.running-head {
+  border-bottom: 1px solid var(--line);
+  font-family: Arial, "Noto Sans Hebrew", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+}
+
+.running-head .wrap {
+  width: var(--wrap);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 0;
+}
+
+.nav-wrap {
+  width: var(--wrap);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  padding: 18px 0;
+}
+
+.brand {
+  margin-inline-end: auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-logo {
+  width: 56px;
+  height: 56px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 2px solid var(--wine);
+  background: var(--paper);
+}
+
+.brand-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.brand-copy strong {
+  display: block;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.brand-copy span {
+  display: block;
+  margin-top: 3px;
+  font-family: Arial, "Noto Sans Hebrew", sans-serif;
+  color: var(--wine);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  font-family: Arial, "Noto Sans Hebrew", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.main-nav a {
+  position: relative;
+  padding: 9px 16px;
+  border-inline-start: 1px solid var(--line);
+}
+
+.main-nav a:first-child { border-inline-start: 0; }
+
+.main-nav a.active,
+.main-nav a:hover {
+  color: var(--wine);
+}
+
+.main-nav a.active::after {
+  content: "";
+  position: absolute;
+  right: 16px;
+  left: 16px;
+  bottom: 4px;
+  height: 2px;
+  background: var(--wine);
+}
+
+.header-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: 1px solid var(--wine);
+  color: var(--wine);
+  font-family: Arial, "Noto Sans Hebrew", sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.header-cta:hover { background: var(--wine); color: var(--parchment); }
+
+/* ---------- hero : the daf / gemara-page grid ---------- */
+.daf {
+  width: var(--wrap);
+  margin: 54px auto 20px;
+}
+
+.daf-title-row {
+  text-align: center;
+  margin-bottom: 34px;
+}
+
+.masechet {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: Arial, "Noto Sans Hebrew", sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--wine);
+}
+
+.masechet::before, .masechet::after {
+  content: "";
+  width: 30px;
+  height: 1px;
+  background: var(--rule);
+}
+
+.daf-grid {
+  display: grid;
+  grid-template-columns: 0.62fr 1.5fr 0.62fr;
+  gap: 0;
+  border-top: 3px double var(--wine);
+  border-bottom: 3px double var(--wine);
+}
+
+.daf-col {
+  padding: 34px 26px;
+  font-family: Arial, "Noto Sans Hebrew", sans-serif;
+}
+
+.daf-col.rashi {
+  border-inline-end: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+.daf-col.rashi h3 {
+  margin: 0 0 10px;
+  font-family: inherit;
+  color: var(--wine);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.daf-col.rashi .gloss { margin: 0 0 26px; }
+.daf-col.rashi .gloss:last-child { margin-bottom: 0; }
+
+.daf-col.tosafot {
+  border-inline-start: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+.daf-col.tosafot h3 {
+  margin: 0 0 10px;
+  font-family: inherit;
+  color: var(--wine);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.daf-col.tosafot ul { margin: 0; padding: 0; list-style: none; }
+.daf-col.tosafot li { padding: 10px 0; border-top: 1px solid var(--line); }
+.daf-col.tosafot li:first-child { border-top: 0; padding-top: 0; }
+.daf-col.tosafot li strong { display: block; color: var(--ink); font-size: 13px; margin-bottom: 3px; }
+
+.daf-col.main {
+  padding: 44px 44px;
+  text-align: center;
+  border-inline: 1px solid var(--line);
+}
+
+.drop {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  line-height: 64px;
+  margin-bottom: 22px;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  color: var(--wine);
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.daf-col.main h1 {
+  margin: 0 0 20px;
+  font-size: clamp(38px, 4.4vw, 58px);
+  line-height: 1.14;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.daf-col.main h1 em {
+  font-style: normal;
+  color: var(--wine);
+}
+
+.lead {
+  max-width: 480px;
+  margin: 0 auto 30px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-family: Arial, "Noto Sans Hebrew", sans-serif;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 28px;
+  border: 1px solid var(--wine);
+  border-radius: 2px;
+  background: var(--wine);
+  color: var(--parchment);
+  font-weight: 800;
+  font-size: 14.5px;
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+.button:hover { transform: translateY(-2px); background: var(--wine-deep); }
+
+.button.secondary {
+  background: transparent;
+  color: var(--wine);
+}
+
+.button.secondary:hover { background: var(--wine); color: var(--parchment); }
+
+.daf-foot {
+  width: var(--wrap);
+  margin: 8px auto 60px;
+  text-align: center;
+  font-family: Arial, "Noto Sans Hebrew", sans-serif;
+  font-size: 10.5px;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+
+/* ---------- amudim : the four "principles" as gemara folio numbers ---------- */
+.amudim {
+  width: var(--wrap);
+  margin: 0 auto 70px;
+}
+
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 26px;
+  font-family: Arial, "Noto Sans Hebrew", sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--wine);
+}
+
+.section-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+.amud-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.amud {
+  padding: 30px 24px;
+  background: var(--paper);
+}
+
+.amud .daf-num {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--gold);
+  font-family: Arial, "Noto Sans Hebrew", sans-serif;
+}
+
+.amud strong { display: block; margin-bottom: 8px; font-size: 19px; }
+.amud span { display: block; color: var(--muted); font-size: 13px; line-height: 1.6; font-family: Arial, "Noto Sans Hebrew", sans-serif; }
+
+/* ---------- feature band ---------- */
+.feature-band {
+  width: var(--wrap);
+  margin: 0 auto 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 3px double var(--wine);
+}
+
+.feature-band figure {
+  margin: 0;
+  position: relative;
+  min-height: 340px;
+}
+
+.feature-band img { width: 100%; height: 100%; object-fit: cover; display: block; filter: sepia(0.18) contrast(1.02); }
+
+.feature-copy {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-inline-start: 3px double var(--wine);
+}
+
+.feature-copy h2 {
+  margin: 14px 0 16px;
+  font-size: 34px;
+  line-height: 1.22;
+}
+
+.feature-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15.5px;
+  line-height: 1.8;
+  font-family: Arial, "Noto Sans Hebrew", sans-serif;
+}
+
+/* ---------- generic page hero for inner pages ---------- */
+.page-hero {
+  width: var(--wrap);
+  margin: 50px auto 60px;
+  text-align: center;
+  padding-bottom: 40px;
+  border-bottom: 3px double var(--wine);
+}
+
+.page-hero h1 {
+  margin: 16px 0 18px;
+  font-size: clamp(36px, 4.2vw, 54px);
+  line-height: 1.15;
+}
+
+.page-hero h1 em { font-style: normal; color: var(--wine); }
+
+.page-hero .lead { max-width: 620px; }
+
+.content-wrap {
+  width: var(--wrap);
+  margin: 0 auto 80px;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-bottom: 60px;
+}
+
+.soft-card {
+  padding: 40px;
+  background: var(--paper);
+}
+
+.soft-card.quote {
+  background: var(--wine);
+  color: var(--parchment);
+  display: flex;
+  align-items: center;
+}
+
+.soft-card.quote p {
+  color: var(--parchment);
+  font-size: 25px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.soft-card.quote p::before {
+  content: "\201D";
+  display: block;
+  color: var(--gold-soft);
+  font-size: 54px;
+  line-height: 1;
+  margin-bottom: 10px;
+  font-family: Georgia, serif;
+}
+
+.soft-card h2 { margin: 0 0 14px; font-size: 28px; }
+.soft-card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.8; font-family: Arial, "Noto Sans Hebrew", sans-serif; }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.gallery figure { margin: 0; position: relative; min-height: 230px; overflow: hidden; }
+.gallery img { width: 100%; height: 100%; object-fit: cover; display: block; filter: sepia(0.14); transition: transform 300ms ease; }
+.gallery figure:hover img { transform: scale(1.04); }
+.gallery figcaption {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 10px 14px;
+  background: rgba(43,31,20,0.78);
+  color: var(--parchment);
+  font-family: Arial, "Noto Sans Hebrew", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.life-notes {
+  margin-top: 1px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border-inline: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.life-note { padding: 26px; background: var(--paper); }
+.life-note strong { display: block; margin-bottom: 8px; font-size: 19px; }
+.life-note span { color: var(--muted); font-size: 13.5px; line-height: 1.7; font-family: Arial, "Noto Sans Hebrew", sans-serif; }
+
+.contact-layout {
+  width: var(--wrap);
+  margin: 0 auto 80px;
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  border: 3px double var(--wine);
+}
+
+.contact-aside {
+  padding: 46px;
+  background: var(--wine);
+  color: var(--parchment);
+}
+
+.contact-aside h1 { font-size: 36px; margin: 14px 0 16px; line-height: 1.2; }
+.contact-aside p { color: rgba(246,236,217,0.8); font-size: 15px; line-height: 1.75; font-family: Arial, "Noto Sans Hebrew", sans-serif; }
+.contact-detail { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(246,236,217,0.25); font-family: Arial, "Noto Sans Hebrew", sans-serif; }
+.contact-detail span { display: block; color: var(--gold-soft); font-size: 11px; font-weight: 800; margin-bottom: 4px; }
+.contact-detail strong { font-size: 16px; }
+
+.contact-form {
+  padding: 46px;
+  background: var(--paper);
+  border-inline-start: 3px double var(--wine);
+}
+
+.contact-form h2 { margin: 0 0 8px; font-size: 27px; }
+.form-note { margin: 0 0 26px; color: var(--muted); font-size: 13.5px; font-family: Arial, "Noto Sans Hebrew", sans-serif; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; font-family: Arial, "Noto Sans Hebrew", sans-serif; }
+.field { display: flex; flex-direction: column; gap: 7px; }
+.field.full { grid-column: 1 / -1; }
+.field label { font-size: 12.5px; font-weight: 800; }
+.field input, .field textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--parchment);
+  outline: 0;
+  color: var(--ink);
+}
+.field input { height: 48px; padding: 0 14px; }
+.field textarea { min-height: 110px; padding: 12px 14px; resize: vertical; }
+.field input:focus, .field textarea:focus { border-color: var(--wine); }
+.contact-form .button { margin-top: 20px; cursor: pointer; border: 0; }
+
+/* ---------- footer ---------- */
+.site-footer {
+  padding: 28px 0;
+  border-top: 3px double var(--wine);
+  background: var(--paper);
+  font-family: Arial, "Noto Sans Hebrew", sans-serif;
+}
+
+.footer-wrap {
+  width: var(--wrap);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.footer-links { display: flex; gap: 20px; }
+
+@media (max-width: 1100px) {
+  :root { --wrap: min(100% - 40px, 900px); }
+  .main-nav, .running-head { display: none; }
+  .daf-grid { grid-template-columns: 1fr; }
+  .daf-col.rashi, .daf-col.tosafot { border: 0; border-top: 1px solid var(--line); }
+  .daf-col.main { border-inline: 0; }
+  .amud-grid { grid-template-columns: repeat(2, 1fr); }
+  .feature-band, .split, .contact-layout { grid-template-columns: 1fr; }
+  .feature-copy { border-inline-start: 0; border-top: 3px double var(--wine); }
+  .contact-form { border-inline-start: 0; border-top: 3px double var(--wine); }
+}
+
+@media (max-width: 680px) {
+  :root { --wrap: calc(100% - 28px); }
+  .amud-grid, .gallery, .life-notes { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .daf-col.main { padding: 32px 20px; }
+  .footer-wrap { flex-direction: column; align-items: flex-start; }
+}
