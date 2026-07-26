@@ -1,0 +1,857 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="מצגת יום פתוח — תלמוד תורה עץ חיים" />
+    <title>נעים להכיר — ת״ת עץ חיים | יום פתוח</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --paper: #fbfaf3;
+        --paper-green: #f1f7f1;
+        --white: #ffffff;
+        --ink: #173e38;
+        --ink-deep: #0e2f27;
+        --muted: #61746f;
+        --turquoise: #12b3a0;
+        --turquoise-deep: #076e66;
+        --leaf: #66b039;
+        --leaf-deep: #3d6b22;
+        --sun: #f8c333;
+        --sun-soft: #fff0bd;
+        --mint: #dff3eb;
+        --coral: #f0672f;
+        --coral-deep: #c94a1f;
+        --coral-soft: #ffdcc2;
+        --line: rgba(23, 62, 56, 0.11);
+        --shadow: 0 24px 70px rgba(35, 86, 74, 0.16);
+        --radius: 28px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+      }
+
+      body {
+        font-family: "Rubik", "Arial Hebrew", "Noto Sans Hebrew", Arial, sans-serif;
+        background: var(--ink-deep);
+        color: var(--ink);
+        overflow: hidden;
+      }
+
+      .deck {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 6vh 8vw;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(28px) scale(0.99);
+        transition: opacity 0.55s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0.55s;
+        background: var(--paper);
+      }
+
+      .slide.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+        z-index: 2;
+      }
+
+      .slide::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: url("assets/tree-motif.svg") no-repeat left -60px bottom -40px / 320px;
+        opacity: 0.09;
+        pointer-events: none;
+      }
+
+      .slide-inner {
+        width: min(1180px, 100%);
+        text-align: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: var(--turquoise-deep);
+        background: var(--mint);
+        border-radius: 999px;
+        padding: 8px 18px;
+        margin-bottom: 22px;
+      }
+
+      h1 {
+        font-size: clamp(2.4rem, 5.4vw, 4.6rem);
+        line-height: 1.08;
+        margin: 0 0 18px;
+        font-weight: 800;
+        color: var(--ink-deep);
+      }
+
+      h1 span {
+        color: var(--turquoise);
+      }
+
+      h2 {
+        font-size: clamp(1.9rem, 3.6vw, 3rem);
+        line-height: 1.15;
+        margin: 0 0 20px;
+        font-weight: 800;
+        color: var(--ink-deep);
+      }
+
+      p.lead {
+        font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+        color: var(--muted);
+        line-height: 1.7;
+        max-width: 760px;
+        margin: 0 auto;
+      }
+
+      /* Title slide */
+      .slide-title .logo-badge {
+        width: 108px;
+        height: 108px;
+        border-radius: 28px;
+        overflow: hidden;
+        margin: 0 auto 30px;
+        box-shadow: var(--shadow);
+        border: 4px solid var(--white);
+      }
+
+      .slide-title .logo-badge img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .slide-title .place {
+        margin-top: 26px;
+        font-size: 1.05rem;
+        color: var(--turquoise-deep);
+        font-weight: 700;
+        letter-spacing: 0.03em;
+      }
+
+      /* Stat cards */
+      .stat-row {
+        display: flex;
+        gap: 28px;
+        justify-content: center;
+        margin-top: 42px;
+        flex-wrap: wrap;
+      }
+
+      .stat-card {
+        background: var(--white);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 34px 42px;
+        min-width: 190px;
+        border: 1px solid var(--line);
+      }
+
+      .stat-card strong {
+        display: block;
+        font-size: clamp(2.4rem, 4vw, 3.4rem);
+        font-weight: 800;
+        color: var(--coral);
+        line-height: 1;
+      }
+
+      .stat-card span {
+        display: block;
+        margin-top: 10px;
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 0.98rem;
+      }
+
+      /* Value cards grid */
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
+        margin-top: 40px;
+        text-align: right;
+      }
+
+      .value-card {
+        background: var(--white);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        padding: 28px 30px;
+        border: 1px solid var(--line);
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+      }
+
+      .value-card .dot {
+        flex: none;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        margin-top: 6px;
+      }
+
+      .value-card:nth-child(1) .dot {
+        background: var(--turquoise);
+      }
+      .value-card:nth-child(2) .dot {
+        background: var(--coral);
+      }
+      .value-card:nth-child(3) .dot {
+        background: var(--sun);
+      }
+      .value-card:nth-child(4) .dot {
+        background: var(--leaf);
+      }
+
+      .value-card h3 {
+        margin: 0 0 6px;
+        font-size: 1.2rem;
+        color: var(--ink-deep);
+      }
+
+      .value-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 0.98rem;
+      }
+
+      /* Chip row (locations) */
+      .chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: center;
+        margin-top: 36px;
+      }
+
+      .chip {
+        background: var(--mint);
+        color: var(--turquoise-deep);
+        font-weight: 700;
+        padding: 14px 26px;
+        border-radius: 999px;
+        font-size: 1.05rem;
+      }
+
+      .chip.primary {
+        background: var(--turquoise);
+        color: var(--white);
+      }
+
+      /* Schedule table */
+      .schedule {
+        margin-top: 38px;
+        width: 100%;
+        max-width: 780px;
+        margin-inline: auto;
+        border-collapse: separate;
+        border-spacing: 0 14px;
+      }
+
+      .schedule th,
+      .schedule td {
+        text-align: center;
+        padding: 18px 14px;
+        font-size: 1.05rem;
+      }
+
+      .schedule thead th {
+        color: var(--muted);
+        font-weight: 700;
+        font-size: 0.9rem;
+      }
+
+      .schedule tbody tr td {
+        background: var(--white);
+        border: 1px solid var(--line);
+      }
+
+      .schedule tbody tr td:first-child {
+        border-radius: 18px 0 0 18px;
+        font-weight: 800;
+        color: var(--ink-deep);
+      }
+
+      .schedule tbody tr td:last-child {
+        border-radius: 0 18px 18px 0;
+        color: var(--coral-deep);
+        font-weight: 700;
+      }
+
+      .foot-note {
+        margin-top: 22px;
+        color: var(--muted);
+        font-size: 1rem;
+      }
+
+      /* Split kodesh/chol */
+      .split-two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-top: 38px;
+        text-align: right;
+      }
+
+      .split-two .panel {
+        border-radius: var(--radius);
+        padding: 32px 30px;
+        box-shadow: var(--shadow);
+      }
+
+      .split-two .panel.kodesh {
+        background: var(--ink-deep);
+        color: var(--white);
+      }
+
+      .split-two .panel.kodesh h3 {
+        color: var(--sun);
+      }
+
+      .split-two .panel.kodesh p {
+        color: rgba(255, 255, 255, 0.78);
+      }
+
+      .split-two .panel.chol {
+        background: var(--white);
+        border: 1px solid var(--line);
+      }
+
+      .split-two .panel h3 {
+        margin: 0 0 12px;
+        font-size: 1.3rem;
+      }
+
+      .split-two .panel p {
+        margin: 0;
+        line-height: 1.7;
+      }
+
+      .tag-list {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+      }
+
+      .tag-list span {
+        background: var(--paper-green);
+        color: var(--leaf-deep);
+        border-radius: 999px;
+        padding: 6px 16px;
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+
+      /* Staff */
+      .staff-row {
+        display: flex;
+        gap: 24px;
+        justify-content: center;
+        margin-top: 40px;
+        flex-wrap: wrap;
+      }
+
+      .staff-pill {
+        background: var(--white);
+        border-radius: 22px;
+        box-shadow: var(--shadow);
+        padding: 26px 34px;
+        border: 1px solid var(--line);
+        min-width: 170px;
+      }
+
+      .staff-pill strong {
+        display: block;
+        font-size: 2.2rem;
+        color: var(--turquoise);
+        font-weight: 800;
+      }
+
+      .staff-pill span {
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      .director-note {
+        margin-top: 30px;
+        font-size: 1.1rem;
+        color: var(--ink-deep);
+        font-weight: 700;
+      }
+
+      /* Gallery slide */
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        margin-top: 36px;
+        width: 100%;
+      }
+
+      .gallery-grid figure {
+        margin: 0;
+        border-radius: 18px;
+        overflow: hidden;
+        aspect-ratio: 4 / 3;
+        box-shadow: var(--shadow);
+      }
+
+      .gallery-grid img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* Events slide */
+      .event-row {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 40px;
+        flex-wrap: wrap;
+      }
+
+      .event-card {
+        background: var(--white);
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+        padding: 22px 26px;
+        border: 1px solid var(--line);
+        min-width: 170px;
+        border-top: 5px solid var(--sun);
+      }
+
+      .event-card:nth-child(2) {
+        border-top-color: var(--coral);
+      }
+      .event-card:nth-child(3) {
+        border-top-color: var(--turquoise);
+      }
+      .event-card:nth-child(4) {
+        border-top-color: var(--leaf);
+      }
+
+      .event-card strong {
+        display: block;
+        font-size: 1.05rem;
+        color: var(--ink-deep);
+      }
+
+      /* Closing / contact slide */
+      .slide-contact {
+        background: var(--ink-deep);
+        color: var(--white);
+      }
+
+      .slide-contact::before {
+        opacity: 0.14;
+      }
+
+      .slide-contact h2 {
+        color: var(--white);
+      }
+
+      .slide-contact p.lead {
+        color: rgba(255, 255, 255, 0.75);
+      }
+
+      .contact-row {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 40px;
+        flex-wrap: wrap;
+      }
+
+      .contact-card {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 20px;
+        padding: 24px 34px;
+        min-width: 220px;
+      }
+
+      .contact-card span {
+        display: block;
+        color: var(--sun);
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .contact-card strong {
+        font-size: 1.4rem;
+        letter-spacing: 0.02em;
+      }
+
+      /* Nav controls */
+      .deck-nav {
+        position: fixed;
+        bottom: 26px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        z-index: 20;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(8px);
+        padding: 10px 18px;
+        border-radius: 999px;
+        box-shadow: var(--shadow);
+      }
+
+      .deck-btn {
+        border: none;
+        background: var(--turquoise);
+        color: var(--white);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.15s ease;
+      }
+
+      .deck-btn:hover {
+        transform: scale(1.08);
+      }
+
+      .dots {
+        display: flex;
+        gap: 8px;
+      }
+
+      .dots button {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        border: none;
+        background: var(--line);
+        cursor: pointer;
+        padding: 0;
+      }
+
+      .dots button.active {
+        background: var(--coral);
+        width: 22px;
+        border-radius: 6px;
+      }
+
+      .slide-count {
+        font-size: 0.85rem;
+        color: var(--muted);
+        font-weight: 700;
+        min-width: 46px;
+        text-align: center;
+      }
+
+      @media (max-width: 860px) {
+        .card-grid,
+        .split-two {
+          grid-template-columns: 1fr;
+        }
+        .gallery-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .slide {
+          padding: 8vh 6vw;
+        }
+      }
+
+      @media print {
+        body {
+          overflow: visible;
+        }
+        .deck {
+          height: auto;
+        }
+        .slide {
+          position: relative;
+          opacity: 1;
+          visibility: visible;
+          transform: none;
+          page-break-after: always;
+          height: 100vh;
+        }
+        .deck-nav {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="deck">
+      <section class="slide slide-title active">
+        <div class="slide-inner">
+          <span class="logo-badge"><img src="assets/logo.jpg" alt="" /></span>
+          <span class="eyebrow">בס״ד · יום פתוח</span>
+          <h1>נעים להכיר<br /><span>ת״ת עץ חיים</span></h1>
+          <p class="lead">בית לילדים ודרך חיים — תורה, מידות ולימוד חי, מתוך יחס אישי חם ואוהב.</p>
+          <div class="place">פרדס חנה · כרכור</div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-inner">
+          <span class="eyebrow">קצת עלינו</span>
+          <h2>שמונה שנים של גדילה משותפת</h2>
+          <p class="lead">תלמוד תורה עץ חיים הוקם לפני 8 שנים, וכיום לומדים בו 112 תלמידים מתוקים בכיתות א׳–ו׳.</p>
+          <div class="stat-row">
+            <div class="stat-card"><strong>8</strong><span>שנות פעילות</span></div>
+            <div class="stat-card"><strong>112</strong><span>תלמידים</span></div>
+            <div class="stat-card"><strong>6</strong><span>כיתות (א׳–ו׳)</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-inner">
+          <span class="eyebrow">מה שמניע אותנו</span>
+          <h2>הערכים שמובילים אותנו</h2>
+          <div class="card-grid">
+            <article class="value-card">
+              <span class="dot"></span>
+              <div><h3>אהבת תורה ויראת שמיים</h3><p>המטרה שלנו היא להאהיב את התורה על הילדים ולהצמיח בהם דבקות בתורה ובנותן התורה.</p></div>
+            </article>
+            <article class="value-card">
+              <span class="dot"></span>
+              <div><h3>לימוד תורה חי ומעניין</h3><p>בונים את הלימוד קומה על גבי קומה, הבנה על גבי הבנה, לאורך השנים.</p></div>
+            </article>
+            <article class="value-card">
+              <span class="dot"></span>
+              <div><h3>יחס אישי חם ואוהב</h3><p>צוות מנוסה שמשתדל לראות כל תלמיד ולתת לו יחס אישי — עד 24 תלמידים בכיתה.</p></div>
+            </article>
+            <article class="value-card">
+              <span class="dot"></span>
+              <div><h3>לימודי חול ברמה מקצועית</h3><p>עברית, חשבון ואנגלית בצורה מקצועית, לפי דרישות משרד החינוך.</p></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-inner">
+          <span class="eyebrow">מאיפה אנחנו</span>
+          <h2>תלמידים מכל האזור</h2>
+          <p class="lead">התלמידים מגיעים מכל האזור — ואנחנו שמחים לפתוח את הדלת לכל משפחה.</p>
+          <div class="chip-row">
+            <span class="chip primary">פרדס חנה</span>
+            <span class="chip">חדרה</span>
+            <span class="chip">אור עקיבא</span>
+            <span class="chip">חריש</span>
+            <span class="chip">כפר פינס</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-inner">
+          <span class="eyebrow">סדר יום</span>
+          <h2>מתי לומדים אצלנו</h2>
+          <table class="schedule">
+            <thead>
+              <tr>
+                <th>כיתות</th>
+                <th>שעות לימודים</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>כיתות א׳–ב׳</td>
+                <td>08:10–13:30</td>
+              </tr>
+              <tr>
+                <td>כיתות ג׳–ד׳</td>
+                <td>08:10–14:45</td>
+              </tr>
+              <tr>
+                <td>ימי שישי</td>
+                <td>עד 11:45</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="foot-note">עד 24 תלמידים בכיתה — כדי להגיע לכל ילד.</p>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-inner">
+          <span class="eyebrow">מה לומדים כאן</span>
+          <h2>קודש ביסוד, חול במקצועיות</h2>
+          <div class="split-two">
+            <div class="panel kodesh">
+              <h3>לימודי קודש</h3>
+              <p>יום הלימודים נפתח בקודש יחד עם המלמד, ובהמשך היום לפי מערכת שנתית קבועה. הלימוד נבנה קומה על גבי קומה, הבנה על גבי הבנה, במשך השנים.</p>
+            </div>
+            <div class="panel chol">
+              <h3>לימודי חול</h3>
+              <p>בצורה מקצועית, על פי דרישות משרד החינוך ובהתאמה לתוכנית הלימודים הכללית.</p>
+              <div class="tag-list">
+                <span>עברית</span>
+                <span>חשבון</span>
+                <span>אנגלית</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-inner">
+          <span class="eyebrow">הצוות שלנו</span>
+          <h2>צוות מנוסה, חם ואוהב</h2>
+          <div class="staff-row">
+            <div class="staff-pill"><strong>6</strong><span>מלמדים־מחנכים</span></div>
+            <div class="staff-pill"><strong>3</strong><span>מורות</span></div>
+            <div class="staff-pill"><strong>4</strong><span>מורים מקצועיים</span></div>
+          </div>
+          <p class="director-note">את הת״ת מנהל הרב חיים דיין</p>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-inner">
+          <span class="eyebrow">רגע מתוך היום שלנו</span>
+          <h2>קצת תמונות מהשגרה</h2>
+          <div class="gallery-grid">
+            <figure><img src="assets/gallery/limud-im-harav.jpg" alt="" /></figure>
+            <figure><img src="assets/gallery/limud-chevruta.jpg" alt="" /></figure>
+            <figure><img src="assets/gallery/beit-mikdash-model.jpg" alt="" /></figure>
+            <figure><img src="assets/gallery/nadnede-group.jpg" alt="" /></figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-inner">
+          <span class="eyebrow">קהילה חמה ומחוברת</span>
+          <h2>אירועים שמחברים אותנו</h2>
+          <p class="lead">במהלך השנה חוגגים יחד — כלל הת״ת והמשפחות משתתפים, ומרגישים קהילה חמה ומחוברת.</p>
+          <div class="event-row">
+            <div class="event-card"><strong>שמחת בית השואבה</strong></div>
+            <div class="event-card"><strong>ל״ג בעומר</strong></div>
+            <div class="event-card"><strong>חגיגה ביום ירושלים</strong></div>
+            <div class="event-card"><strong>מסיבת סיום</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide slide-contact">
+        <div class="slide-inner">
+          <span class="eyebrow">מוזמנים תמיד</span>
+          <h2>נשמח לראות אתכם אצלנו</h2>
+          <p class="lead">לכל שאלה — לפני, במהלך או אחרי יום ההיכרות — אנחנו כאן.</p>
+          <div class="contact-row">
+            <div class="contact-card"><span>הרב חיים דיין</span><strong>054-756-1830</strong></div>
+            <div class="contact-card"><span>מזכירות</span><strong>054-982-4993</strong></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="deck-nav" role="group" aria-label="ניווט מצגת">
+      <button class="deck-btn" id="prevBtn" aria-label="שקופית קודמת">›</button>
+      <div class="dots" id="dots"></div>
+      <span class="slide-count" id="count">1 / 10</span>
+      <button class="deck-btn" id="nextBtn" aria-label="שקופית הבאה">‹</button>
+    </div>
+
+    <script>
+      var slides = document.querySelectorAll(".slide");
+      var dotsWrap = document.getElementById("dots");
+      var countEl = document.getElementById("count");
+      var current = 0;
+
+      slides.forEach(function (_, i) {
+        var b = document.createElement("button");
+        b.addEventListener("click", function () {
+          goTo(i);
+        });
+        dotsWrap.appendChild(b);
+      });
+
+      function render() {
+        slides.forEach(function (s, i) {
+          s.classList.toggle("active", i === current);
+        });
+        Array.prototype.forEach.call(dotsWrap.children, function (d, i) {
+          d.classList.toggle("active", i === current);
+        });
+        countEl.textContent = current + 1 + " / " + slides.length;
+      }
+
+      function goTo(i) {
+        current = Math.max(0, Math.min(slides.length - 1, i));
+        render();
+      }
+
+      document.getElementById("nextBtn").addEventListener("click", function () {
+        goTo(current - 1 < 0 ? current + 1 : current - 1);
+      });
+      document.getElementById("prevBtn").addEventListener("click", function () {
+        goTo(current + 1);
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowLeft") goTo(current + 1);
+        if (e.key === "ArrowRight") goTo(current - 1);
+        if (e.key === "Home") goTo(0);
+        if (e.key === "End") goTo(slides.length - 1);
+      });
+
+      var touchStartX = null;
+      document.addEventListener("touchstart", function (e) {
+        touchStartX = e.touches[0].clientX;
+      });
+      document.addEventListener("touchend", function (e) {
+        if (touchStartX === null) return;
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 50) {
+          if (dx > 0) goTo(current + 1);
+          else goTo(current - 1);
+        }
+        touchStartX = null;
+      });
+
+      render();
+    </script>
+  </body>
+</html>
